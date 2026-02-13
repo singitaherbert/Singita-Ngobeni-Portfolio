@@ -1,304 +1,139 @@
-/* CSS Custom Properties (Variables) */
-/* These colors are used throughout the site for consistency */
+/* =====================================================
+   ROOT VARIABLES
+===================================================== */
 :root {
-    --primary-color: #0d6efd; /* Main blue color used for accents and highlights */
-    --dark-bg: #121212; /* Very dark gray (not heavily used) */
-    --light-bg: #f8f9fa; /* Light gray for subtle backgrounds */
+    --primary-color: #0d6efd;
+    --dark-bg: #121212;
+    --light-bg: #f8f9fa;
 }
 
-/* Global Body Styling */
+/* =====================================================
+   GLOBAL
+===================================================== */
 body {
-    font-family: 'Inter', sans-serif; /* Modern, clean sans-serif font */
-    color: #333; /* Dark gray text color */
-    scroll-behavior: smooth; /* Smooth scrolling when clicking anchor links */
+    font-family: 'Inter', sans-serif;
+    color: #333;
+    scroll-behavior: smooth;
 }
 
-/* Navigation Bar Styling */
+/* =====================================================
+   NAVBAR
+===================================================== */
+#mainNavbar {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #000;
+}
+
+#mainNavbar.nav-transparent {
+    background-color: transparent;
+    box-shadow: none;
+}
+
 .navbar {
-    backdrop-filter: blur(10px); /* Glassmorphism effect - blurs background */
-    background-color: rgba(33, 37, 41, 0.95) !important; /* Semi-transparent dark background */
+    backdrop-filter: blur(10px);
+    background-color: rgba(33, 37, 41, 0.95) !important;
 }
 
-/* Original Hero Section (not used, kept for reference) */
-.hero-section {
-    padding: 180px 0 100px; /* Generous vertical padding */
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); /* Diagonal gradient background */
+.nav-link {
+    font-weight: 500;
+    margin: 0 10px;
+    transition: color 0.3s ease;
 }
 
-/* New Hero Section with Diagonal Split */
-/* This creates a full-height hero section with a diagonal split layout */
-/* Left side: Text content, Right side: Hero image in triangular shape */
+.nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+.nav-link.active {
+    color: var(--primary-color) !important;
+    font-weight: 600;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 2px;
+}
+
+.navbar-brand .bi,
+footer .bi {
+    font-size: 1.75rem;
+    margin-right: 8px;
+}
+
+/* =====================================================
+   HERO SECTION
+===================================================== */
 .hero-section-new {
-    position: relative; /* Allows absolute positioning of child elements */
-    width: 100%; /* Full viewport width */
-    min-height: 100vh; /* 85% of viewport height (reduced from 100vh for less space) */
-    display: flex; /* Flexbox for alignment */
-    align-items: center; /* Vertically center content */
-    justify-content: flex-start; /* Align content to the left */
-    overflow: hidden; /* Hide any overflow to preserve diagonal effect */
-    margin-top: 70px; /* Space below navbar */
-    background-color: #f8f9fa; /* Light gray fallback background */
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background-color: var(--light-bg);
+    overflow: hidden;
+    padding-top: 70px;
 }
 
-/* Hero Background - Contains the hero image */
-/* Positioned on the right side of the screen */
+/* Background image */
 .hero-background {
-    position: absolute; /* Absolute positioning to overlay */
-    top: 0;
-    right: 0; /* Align to right edge */
-    width: 40%; /* Takes up 40% of the screen width on the right */
-    height: 100%; /* Full height of hero section */
-    background-size: cover; /* Scale image to cover the container */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Don't repeat the image */
-    z-index: 1; /* Base layer for background */
-    /* Clip-path creates the diagonal triangle effect */
-    /* polygon points: top-left, top-right, bottom-right, bottom-center */
-    /* This creates a shape that angles inward from bottom-right toward center */
-    clip-path: polygon(0% 0, 100% 0, 100% 100%, 50% 100%);
-    /* Image quality and visual enhancements */
-    image-rendering: high-quality;
-    image-rendering: crisp-edges;
-    /* Filters to enhance the image: brightness, contrast, saturation */
-    filter: brightness(1.05) contrast(1.1) saturate(1.15);
-    /* Prevent 3D transformation artifacts */
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-}
-
-/* Overlay on the hero background image */
-/* Adds a subtle blue tint for better readability */
-.hero-background::before {
-    content: ''; /* Create pseudo-element */
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    /* Semi-transparent blue overlay */
-    background: rgba(13, 110, 253, 0.15);
-    z-index: 2; /* Layer above background but below content */
-}
-
-/* Diagonal Panel (currently hidden) */
-/* This was used for the blue gradient overlay, now hidden */
-.hero-diagonal-panel {
     position: absolute;
     top: 0;
     right: 0;
-    width: 40%;
+    width: 55%;
     height: 100%;
-    /* Blue gradient overlay */
-    background: linear-gradient(135deg, rgba(13, 110, 253, 0.95), rgba(13, 110, 253, 0.85));
-    /* Same diagonal clip-path as background for alignment */
-    clip-path: polygon(0% 0, 100% 0, 100% 100%, 50% 100%);
-    z-index: 3;
-    display: none; /* Hidden */
+    background-image: url('Images/hero-img.png');
+    background-size: cover;
+    background-position: center;
+    clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%);
+    filter: brightness(1.05) contrast(1.1) saturate(1.15);
+    z-index: 1;
 }
 
-/* Content wrapper - Holds all text content */
-/* Positioned on the left side of the screen */
+.hero-background::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(13,110,253,0.15);
+}
+
+/* Hero Content */
 .hero-content-wrapper {
-    position: absolute; /* Absolute positioning to overlay on background */
-    top: 0;
-    left: 0; /* Align to left edge */
-    width: 60%; /* Takes up 60% of screen (leaves 40% for image) */
-    height: 100%; /* Full height of hero section */
-    z-index: 5; /* High z-index to appear above background */
-    display: flex; /* Flexbox for alignment */
-    align-items: center; /* Vertically center content */
-    justify-content: flex-start; /* Align to left */
-    padding: 0 3rem; /* Horizontal padding for spacing */
+    position: relative;
+    z-index: 2;
 }
 
-/* Hero content text styling */
 .hero-content {
-    max-width: 600px; /* Limit width for readability */
-    color: #333; /* Dark text color */
-    width: 100%; /* Use full available width */
+    max-width: 650px;
 }
 
-/* Display heading (name) */
-.hero-content .badge {
-    display: inline-block; /* Inline but with block properties */
-}
-
-/* Large display heading for name */
 .hero-content .display-3 {
-    font-size: 3.5rem; /* Large heading size */
-    line-height: 1.1; /* Tight line height */
-    color: #333; /* Dark color */
+    font-size: 3.5rem;
+    line-height: 1.1;
 }
 
-/* Subtitle styling */
-.hero-content .h4 {
-    color: #666; /* Medium gray */
-}
-
-/* Description paragraph */
 .hero-content .lead {
-    font-size: 1.1rem; /* Slightly larger text */
-    line-height: 1.6; /* Comfortable reading line height */
-    color: #555; /* Dark gray color */
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #555;
 }
 
-/* Typing Animation Container */
-/* Displays the dynamically typed titles */
+/* Typing Animation */
 .typing-animation {
-    display: inline-block; /* Allow dynamic width changes */
-    min-height: 1.5em; /* Reserve space for text */
-    min-width: 200px; /* Minimum width for titles */
-    font-weight: 600; /* Bold text */
-}
-
-/* Blinking cursor animation (currently not used, cursor removed) */
-.typing-cursor {
     display: inline-block;
-    width: 2px; /* Thin cursor line */
-    height: 1.5em; /* Match text height */
-    margin-left: 5px; /* Space before cursor */
-    background-color: currentColor; /* Use inherited color */
-    /* Cursor blink animation */
-    animation: cursor-blink 0.7s infinite;
+    min-height: 1.5em;
+    min-width: 200px;
+    font-weight: 600;
 }
 
-/* Keyframe animation for cursor blinking */
-@keyframes cursor-blink {
-    0%, 50% {
-        opacity: 1; /* Visible for first half */
-    }
-    51%, 100% {
-        opacity: 0; /* Invisible for second half */
-    }
+/* =====================================================
+   BUTTONS
+===================================================== */
+.btn-primary,
+.btn-outline-dark {
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: 600;
 }
 
-/* Responsive Design */
-
-/* Tablet (768px - 1024px) */
-/* Adjusts layout and sizing for medium screens */
-@media (max-width: 1024px) {
-    /* Slightly shorter hero section on tablets */
-    .hero-section-new {
-        min-height: 85vh;
-    }
-
-    /* Increase image width for better visibility */
-    .hero-background {
-        width: 45%;
-    }
-
-    /* Match diagonal panel width */
-    .hero-diagonal-panel {
-        width: 45%;
-    }
-
-    /* Adjust content width to accommodate wider image */
-    .hero-content-wrapper {
-        width: 55%;
-    }
-
-    /* Reduce font size for smaller screens */
-    .hero-content .display-3 {
-        font-size: 2.8rem;
-    }
-
-    .hero-content .lead {
-        font-size: 1rem;
-    }
-}
-
-/* Mobile (below 768px) */
-/* Completely restructures layout for phones */
-@media (max-width: 767px) {
-    /* Hero section now uses padding instead of fixed height */
-    .hero-section-new {
-        min-height: auto; /* Allow natural height */
-        padding: 100px 0 60px; /* Vertical padding instead of vh */
-        justify-content: center; /* Center content */
-    }
-
-    /* Hide background image on mobile for better readability */
-    .hero-background {
-        display: none; /* Don't show image on small screens */
-    }
-
-    /* Hide diagonal panel on mobile */
-    .hero-diagonal-panel {
-        display: none;
-    }
-
-    /* Switch to relative positioning for mobile */
-    .hero-content-wrapper {
-        position: relative; /* Changed from absolute */
-        left: 0; /* Reset left position */
-        width: 100%; /* Full width on mobile */
-        padding: 40px 20px; /* Comfortable padding for mobile */
-        text-align: center; /* Center align text on mobile */
-        justify-content: center; /* Center horizontally */
-    }
-
-    /* Use full width on mobile */
-    .hero-content {
-        max-width: 100%;
-    }
-
-    /* Reduce heading size for mobile */
-    .hero-content .display-3 {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-    }
-
-    /* Smaller subtitle on mobile */
-    .hero-content .h4 {
-        font-size: 1.1rem;
-    }
-
-    /* Smaller lead text on mobile */
-    .hero-content .lead {
-        font-size: 0.95rem;
-        max-width: 100%; /* Use full width */
-        margin-bottom: 2rem;
-    }
-
-    /* Stack buttons vertically or center on mobile */
-    .hero-content .d-flex {
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    /* Full width buttons on mobile */
-    .hero-content .btn {
-        width: 100%;
-        max-width: 200px;
-    }
-}
-
-/* Small mobile (below 480px) */
-/* Further optimization for very small screens */
-@media (max-width: 480px) {
-    /* Very large heading becomes smaller */
-    .hero-content .display-3 {
-        font-size: 1.5rem;
-    }
-
-    /* Smaller subtitle */
-    .hero-content .h4 {
-        font-size: 1rem;
-    }
-
-    /* Smaller badge text */
-    .badge {
-        font-size: 0.75rem;
-    }
-}
-
-.hero-img {
-    max-width: 320px;
-    width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-}
-
+/* =====================================================
+   SECTION TITLES
+===================================================== */
 .section-title {
     position: relative;
     padding-bottom: 15px;
@@ -317,174 +152,138 @@ body {
     background-color: var(--primary-color);
 }
 
-/* Project Cards Styling */
-/* Used in the Projects section to display project cards */
+/* =====================================================
+   CARDS
+===================================================== */
 .card {
-    border: none; /* Remove default border */
-    border-radius: 12px; /* Rounded corners */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Subtle shadow for depth */
-    transition: all 0.3s ease; /* Smooth animation on hover */
-    height: 100%; /* Equal height for all cards */
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    height: 100%;
 }
 
-/* Card Hover Effect */
-/* Lifts the card slightly when hovered */
 .card:hover {
-    transform: translateY(-10px); /* Move card up 10px */
-    box-shadow: 0 15px 40px rgba(0,0,0,0.1); /* Deeper shadow when lifted */
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
 }
 
-/* Skill Badges */
-/* Used to display skills like SQL, PHP, etc. */
-.skill-badge {
-    background-color: #e9ecef; /* Light gray background */
-    color: #495057; /* Medium gray text */
-    padding: 8px 16px; /* Compact padding */
-    border-radius: 50px; /* Pill-shaped with max border radius */
-    font-size: 0.85rem; /* Slightly smaller text */
-    font-weight: 600; /* Semi-bold */
-    margin-bottom: 8px;
-    display: inline-block; /* Allow inline placement */
-}
-
-/* Project Category Label */
-/* Appears at the top of each project card (e.g., "Software Engineering") */
 .project-category {
-    font-size: 0.75rem; /* Very small text */
-    text-transform: uppercase; /* Convert to all caps */
-    letter-spacing: 1px; /* Add spacing between letters */
-    font-weight: 700; /* Bold */
-    color: var(--primary-color); /* Blue color */
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: var(--primary-color);
 }
 
-/* Coming Soon Card Overlay */
-/* Container for "coming soon" project cards */
-.coming-soon-overlay {
-    position: relative; /* Allow positioning of child elements */
+/* =====================================================
+   SKILL BADGES
+===================================================== */
+.skill-badge {
+    background-color: #e9ecef;
+    color: #495057;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: inline-block;
 }
 
-/* Coming Soon Badge */
-/* Positioned badge that appears in the corner of "coming soon" cards */
-.coming-soon-badge {
-    position: absolute; /* Position relative to coming-soon-overlay */
-    top: 10px; /* Offset from top */
-    right: 10px; /* Offset from right */
-    z-index: 2; /* Appears above card content */
-}
-
-/* Contact Section Icons */
-/* Styles the icons in the "Get In Touch" section */
+/* =====================================================
+   CONTACT ICONS
+===================================================== */
 .contact-icon {
-    font-size: 2.5rem; /* Large icon size (1.67x larger than default) */
-    margin-bottom: 10px; /* Space below each icon */
-    color: var(--primary-color); /* Blue color (#0d6efd) */
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
 }
 
-/* Footer Styling */
+/* =====================================================
+   FOOTER
+===================================================== */
 footer {
-    background-color: #212529; /* Dark gray-black background */
-    color: #fff; /* White text */
+    background-color: #212529;
+    color: #fff;
 }
 
-/* Primary Button Styling */
-/* Applied to blue filled buttons (View Projects, Get In Touch) */
-.btn-primary {
-    padding: 12px 30px; /* Vertical and horizontal padding */
-    border-radius: 8px; /* Rounded corners */
-    font-weight: 600; /* Semi-bold text */
-}
-
-/* Outline Button Styling */
-/* Applied to outlined buttons like "Get In Touch" */
-.btn-outline-dark {
-    padding: 12px 30px; /* Same padding as primary for consistency */
-    border-radius: 8px; /* Rounded corners */
-    font-weight: 600; /* Semi-bold text */
-}
-
-/* Navigation Link Styling */
-.nav-link {
-    font-weight: 500; /* Medium weight for nav text */
-    margin: 0 10px; /* Space between nav items */
-    transition: color 0.3s ease; /* Smooth color transition on hover */
-}
-
-/* Hover effect for navigation links */
-/* When user hovers over a nav link, it changes to the primary blue color */
-.nav-link:hover {
-    color: var(--primary-color) !important; /* Change to blue (#0d6efd) */
-}
-
-/* Icon styling in navbar and footer */
-/* Enlarges the bi bi-code icons and adds spacing */
-.navbar-brand .bi {
-    font-size: 1.75rem; /* Larger icon size */
-    margin-right: 8px; /* Space between icon and text */
-}
-
-footer .bi {
-    font-size: 1.75rem; /* Same size in footer */
-    margin-right: 8px; /* Space between icon and text */
-}
-
-/* Active state for navigation links */
-/* Applied when user is viewing the corresponding section */
-.nav-link.active {
-    color: var(--primary-color) !important; /* Blue color for active link */
-    font-weight: 600; /* Slightly bolder */
-    border-bottom: 2px solid var(--primary-color); /* Blue underline indicator */
-    padding-bottom: 2px; /* Room for underline */
-}
-
-/* Slide animation from the hero image */
-/* Creates a smooth slide-in effect when page loads */
-.slide-fwd-right {
-    -webkit-animation: slide-fwd-right 0.45s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-    animation: slide-fwd-right 0.45s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
-
-/* Slide Forward Center Animation */
-/* Creates a 3D depth effect sliding forward from the center */
+/* =====================================================
+   ANIMATIONS
+===================================================== */
 .slide-fwd-center {
-    -webkit-animation: slide-fwd-center 0.45s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-    animation: slide-fwd-center 0.45s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
-
-/* ============================================
- * Keyframe Animations
- * ============================================ */
-
-/* Slide Forward Center Keyframes */
-/* Creates 3D depth effect - element appears to move forward toward viewer */
-/* Animation by Animista - http://animista.net */
-@-webkit-keyframes slide-fwd-center {
-    0% {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-    }
-    100% {
-        -webkit-transform: translateZ(160px);
-        transform: translateZ(160px);
-    }
+    animation: slide-fwd-center 0.45s cubic-bezier(0.250,0.460,0.450,0.940) both;
 }
 
 @keyframes slide-fwd-center {
-    0% {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
+    0% { transform: translateZ(0); }
+    100% { transform: translateZ(160px); }
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+/* Tablet */
+@media (max-width: 992px) {
+
+    .hero-background {
+        width: 65%;
+        clip-path: polygon(35% 0, 100% 0, 100% 100%, 10% 100%);
     }
-    100% {
-        -webkit-transform: translateZ(160px);
-        transform: translateZ(160px);
+
+    .hero-content .display-3 {
+        font-size: 2.8rem;
     }
 }
 
-#mainNavbar {
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  background-color: #000; /* default */
+/* Mobile */
+@media (max-width: 768px) {
+
+    .hero-section-new {
+        min-height: auto;
+        padding: 120px 20px 80px;
+    }
+
+    .hero-background {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        clip-path: none;
+    }
+
+    .hero-content-wrapper {
+        margin-top: 40px;
+        text-align: center;
+    }
+
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .hero-content .display-3 {
+        font-size: 2rem;
+    }
+
+    .hero-content .lead {
+        font-size: 1rem;
+    }
+
+    .hero-content .d-flex {
+        justify-content: center;
+    }
+}
+.hero-content .badge {
+    display: inline-block; /* keep block-like behavior */
+    max-width: 100%;       /* don’t exceed parent width */
+    white-space: normal;   /* allow wrapping to multiple lines */
+    word-break: break-word; /* break long words if needed */
+    font-size: 0.9rem;    /* slightly smaller for mobile */
+    padding: 0.35em 0.75em; /* adjust padding for responsive fit */
 }
 
-#mainNavbar.nav-transparent {
-  background-color: transparent;
-  box-shadow: none;
+@media (max-width: 768px) {
+    .hero-content .badge {
+        font-size: 0.8rem;
+        padding: 0.25em 0.5em;
+    }
 }
